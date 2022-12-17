@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {backgroundImage} from '../../../components/image';
-import {White} from '../../../components/color';
+import {Black, White} from '../../../components/color';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -24,7 +24,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Button from '../../../components/button';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const LoginScreen: React.FC = () => {
+const LoginScreen: React.FC = ({navigation}: any) => {
   const {
     control,
     handleSubmit,
@@ -33,6 +33,10 @@ const LoginScreen: React.FC = () => {
 
   const [check, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
+
+  const SignInFunction = (data: any) => {
+    console.log('data', data);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -50,7 +54,7 @@ const LoginScreen: React.FC = () => {
               <InputComponent
                 placeholder="Email Address"
                 control={control}
-                name="EmailSignIn"
+                name="email"
                 keyboard={'email-address'}
                 secureKey={false}
                 rules={{
@@ -88,8 +92,13 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.signedText}>Keep me Signed in</Text>
               </View>
               <View style={{alignItems: 'center'}}>
-                <Button btnText="Sign In" />
-                <TouchableOpacity style={{margin: 12}}>
+                <Button
+                  btnText="Sign In"
+                  onPress={handleSubmit(SignInFunction)}
+                />
+                <TouchableOpacity
+                  style={{margin: 12}}
+                  onPress={() => navigation.navigate('ForgetPassword')}>
                   <Text style={styles.forgetText}>Forgot Password?</Text>
                 </TouchableOpacity>
               </View>
@@ -97,7 +106,9 @@ const LoginScreen: React.FC = () => {
                 <Text style={styles.simpleText}>
                   Are you new to Jal Rakshak?
                 </Text>
-                <TouchableOpacity style={{margin: 12}}>
+                <TouchableOpacity
+                  style={{margin: 12}}
+                  onPress={() => navigation.navigate('RegisterScreen')}>
                   <Text style={styles.forgetText}>Create an Account</Text>
                 </TouchableOpacity>
               </View>
@@ -123,7 +134,7 @@ const styles = StyleSheet.create({
     padding: 12,
     position: 'absolute',
     bottom: 0,
-    height: hp('60%'),
+    height: hp('70%'),
     width: wp('100%'),
     borderTopLeftRadius: 46,
     borderTopRightRadius: 46,
@@ -131,10 +142,11 @@ const styles = StyleSheet.create({
   headerText: {
     padding: 12,
     fontSize: HeaderSize,
+    color: Black,
   },
   mainText: {
     textAlign: 'center',
-    top: hp('20%'),
+    top: hp('10%'),
     fontSize: HeaderSize,
     color: White,
   },

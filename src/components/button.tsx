@@ -6,11 +6,11 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {White} from './color';
-import { paraSize} from './fontSize';
+import {paraSize} from './fontSize';
 
 const Button = (props: any) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={props.onPress}>
       <LinearGradient
         colors={['#1A9BEF', '#10C44F']}
         style={styles.linearGradient}
